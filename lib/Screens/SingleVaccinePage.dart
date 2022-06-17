@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, use_key_in_widget_constructors
+// ignore_for_file: must_be_immutable, use_key_in_widget_constructors
 
 import 'package:digitalvaccinepassport/comp/VaccineListCard.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +37,7 @@ class SingleVaccinePage extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,
@@ -50,7 +50,7 @@ class SingleVaccinePage extends StatelessWidget {
         width: double.infinity,
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 25,
             ),
             if (vaccine?.name != null) ...[
@@ -58,12 +58,12 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Name: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(vaccine!.name),
@@ -74,12 +74,12 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Vaccination for: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(vaccine!.vaccination),
@@ -90,18 +90,18 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Expiry date: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today),
+                        const Icon(Icons.calendar_today),
                         Text(vaccine!.expireDate),
                       ],
                     ),
@@ -112,18 +112,18 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Date of Vaccination: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today),
+                        const Icon(Icons.calendar_today),
                         Text(vaccine!.date),
                       ],
                     ),
@@ -134,16 +134,19 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   /* decoration: BoxDecoration(color: Colors.grey[400]), */
-                  margin: EdgeInsets.symmetric(horizontal: 50, vertical: 0),
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                   child: Text(
                     vaccine!.info,
                     textAlign: TextAlign.justify,
-                    style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+                    style: const TextStyle(
+                        fontSize: 14, fontStyle: FontStyle.italic),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               //PatientHomeScreen Click
@@ -152,9 +155,9 @@ class SingleVaccinePage extends StatelessWidget {
                 widthFactor: 20,
                 child: FloatingActionButton.extended(
                   heroTag: 'navigate_to_Link_src',
-                  label: Text('Click here to learn more'), // <-- Text
+                  label: const Text('Click here to learn more'), // <-- Text
                   backgroundColor: Colors.black,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.web_sharp,
                     size: 24.0,
                   ),
@@ -163,7 +166,7 @@ class SingleVaccinePage extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ] else if (vaccineList?.name != null) ...[
@@ -173,12 +176,12 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Name: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(vaccineList!.name),
@@ -189,12 +192,12 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Vaccination for: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Text(vaccineList!.vaccination),
@@ -205,18 +208,18 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Expiry date: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today),
+                        const Icon(Icons.calendar_today),
                         Text(vaccineList!.expireDate),
                       ],
                     ),
@@ -227,18 +230,18 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 1,
                 child: Column(
                   children: [
-                    Text(
+                    const Text(
                       'Date of Vaccination: ',
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.calendar_today),
+                        const Icon(Icons.calendar_today),
                         Text(vaccineList!.date),
                       ],
                     ),
@@ -249,16 +252,19 @@ class SingleVaccinePage extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   /* decoration: BoxDecoration(color: Colors.grey[400]), */
-                  margin: EdgeInsets.symmetric(horizontal: 50, vertical: 0),
-                  padding: EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 0),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                   child: Text(
                     vaccineList!.info,
                     textAlign: TextAlign.justify,
-                    style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+                    style: const TextStyle(
+                        fontSize: 14, fontStyle: FontStyle.italic),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               //PatientHomeScreen Click
@@ -267,9 +273,9 @@ class SingleVaccinePage extends StatelessWidget {
                 widthFactor: 20,
                 child: FloatingActionButton.extended(
                   heroTag: 'navigate_to_Link_src',
-                  label: Text('Click here to learn more'), // <-- Text
+                  label: const Text('Click here to learn more'), // <-- Text
                   backgroundColor: Colors.black,
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.web_sharp,
                     size: 24.0,
                   ),
@@ -278,11 +284,11 @@ class SingleVaccinePage extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               )
             ] else ...[
-              Center(
+              const Center(
                   child: Text(
                 'no vaccinedetails',
                 style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),

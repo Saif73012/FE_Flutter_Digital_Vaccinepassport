@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:digitalvaccinepassport/Screens/SingleVaccinePage.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +9,8 @@ class VaccineCard extends StatelessWidget {
   final String date;
   final String url;
 
-  VaccineCard(
+  // ignore: use_key_in_widget_constructors
+  const VaccineCard(
       {required this.name,
       required this.vaccination,
       required this.info,
@@ -43,7 +42,7 @@ class VaccineCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           child: Container(
             width: 150,
-            padding: EdgeInsets.all(12),
+            padding: const EdgeInsets.all(12),
             color: Colors.grey[400],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,7 +51,7 @@ class VaccineCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
+                    SizedBox(
                         height: 30,
                         child: Icon(
                           Icons.medication,

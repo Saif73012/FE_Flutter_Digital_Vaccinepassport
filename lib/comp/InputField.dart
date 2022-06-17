@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 class InputFile extends StatelessWidget {
@@ -6,6 +8,7 @@ class InputFile extends StatelessWidget {
   final String label;
   dynamic controller;
 
+  // ignore: use_key_in_widget_constructors
   InputFile(
       {required this.label,
       required this.controller,
@@ -19,24 +22,24 @@ class InputFile extends StatelessWidget {
       children: <Widget>[
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
         ),
-        SizedBox(
+        const SizedBox(
           height: 5,
         ),
         TextFormField(
           obscureText: obscureText,
           controller: controller,
           validator: validator,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
               enabledBorder: OutlineInputBorder(
                 borderSide: BorderSide(),
               ),
               border: OutlineInputBorder(borderSide: BorderSide())),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         )
       ],

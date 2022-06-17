@@ -198,8 +198,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
               ),
-              Container(
-                  child: Column(
+              Column(
                 children: [
                   Text('Register a doctor\'s Office?'),
                   InkWell(
@@ -218,7 +217,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   )
                 ],
-              )),
+              ),
               Container(
                 padding: EdgeInsets.only(top: 3, left: 3),
                 decoration: BoxDecoration(
@@ -235,8 +234,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
                       _attemptCreateUser();
-                    } else {
-                      print("UnSuccessfull");
                     }
                   },
                   color: Colors.black,

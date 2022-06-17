@@ -1,11 +1,10 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+//  prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../API/api.dart';
 import '../comp/VaccineListCard.dart';
@@ -30,21 +29,16 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
   }
 
   filterEntry(entry) {
-    /* print('filter'); */
     var formatter = DateFormat('dd-MM-yyyy');
     DateTime dt = DateTime.parse(entry['expireDate']);
     DateTime dts = DateTime.parse(entry['date']);
     entry['date'] = formatter.format(dts);
     entry['expireDate'] = formatter.format(dt);
-    /* print('DATE: ');
-    print(entry['expireDate']); */
+
     var vaccineinfo = entry['vacine_Id'];
-    /* print(vaccineinfo['name']);
-    print(vaccineinfo['abbrevation']);
-    print(vaccineinfo['information']); */
+
     var filteredEntry = List<String>.filled(6, "");
-    /* print('before seting up filterd: ');
-    print(filteredEntry); */
+
     filteredEntry[0] = vaccineinfo['name'];
     filteredEntry[1] = vaccineinfo['abbrevation'];
     filteredEntry[2] = vaccineinfo['information'];
@@ -52,8 +46,6 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
     filteredEntry[4] = entry['expireDate'];
     filteredEntry[5] = entry['date'];
 
-    /*  print('after seting up filterd: ');
-    print(filteredEntry); */
     return filteredEntry;
   }
 
@@ -61,24 +53,18 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
     SharedPreferences logindata = await SharedPreferences.getInstance();
     List<String> listOfEntries;
     var res = await BECall().getUserInfoById(id, 'patient', token);
-    print('KSI');
-    print(res);
     final List<dynamic> metadata = res['entries'];
     listOfEntries = metadata.map((e) => e.toString()).toList();
     logindata.setString('id', res['_id']);
     logindata.setStringList('entries', listOfEntries);
     final li = logindata.getStringList('entries');
-    /* print('LIST');
-    print(li);
-    print(li!.length); */
+
     for (var i = 0; i <= li!.length; i++) {
       var entry = await BECall().getUserInfoById(li[i], 'entry', token);
       var result = filterEntry(entry);
 
       AllVaccinesList.add(result);
     }
-    /* print('List of all ');
-    print(AllVaccinesList); */
   }
 
   decodeJwt() {
@@ -95,7 +81,6 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
 
   getToken() async {
     SharedPreferences logindata = await SharedPreferences.getInstance();
-    //Return String
     String? stringValue = logindata.getString('token');
     token = stringValue;
     decodeJwt();
@@ -109,19 +94,6 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
     });
   }
 
-  /* final List AllVaccinesList = [
-    // name , shortname , info , date
-    ['Astrazenica', 'Astra', 'Impfung gegen Covid-19', '20.02.2021'],
-    ['JohnsenJohnsen', 'J&J', 'Impfung gegen Covid-19', '20.08.2021'],
-    ['Biontech Pfizer', 'Pfizer', 'Impfung gegen Covid-19', '20.01.2022'],
-    ['Astrazenica', 'Astra', 'Impfung gegen Covid-19', '20.02.2021'],
-    ['JohnsenJohnsen', 'J&J', 'Impfung gegen Covid-19', '20.08.2021'],
-    ['Biontech Pfizer', 'Pfizer', 'Impfung gegen Covid-19', '20.01.2022'],
-    ['Astrazenica', 'Astra', 'Impfung gegen Covid-19', '20.02.2021'],
-    ['JohnsenJohnsen', 'J&J', 'Impfung gegen Covid-19', '20.08.2021'],
-    ['Biontech Pfizer', 'Pfizer', 'Impfung gegen Covid-19', '20.01.2022']
-  ]; */
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +106,7 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,
@@ -143,10 +115,10 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.only(left: 25, right: 25),
           child: Text(
             'List of All Vaccines',
@@ -156,7 +128,7 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 25,
         ),
         Expanded(
@@ -165,11 +137,11 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
           child: FutureBuilder(
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(
-                  child: const CircularProgressIndicator(
+                return const Center(
+                  child: CircularProgressIndicator(
                     backgroundColor: Colors.black26,
                     valueColor: AlwaysStoppedAnimation<Color>(
-                      Colors.black, //<-- SEE HERE
+                      Colors.black,
                     ),
                   ),
                 );
@@ -191,7 +163,7 @@ class _ListAllVaccinePageState extends State<ListAllVaccinePage> {
             future: getList(),
           ),
         )),
-        SizedBox(
+        const SizedBox(
           height: 20,
         ),
       ]),

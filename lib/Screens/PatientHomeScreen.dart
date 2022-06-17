@@ -1,20 +1,17 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:convert';
+// ignore_for_file: prefer_const_constructors, prefer_typing_uninitialized_variables
 
 import 'package:digitalvaccinepassport/Screens/AddVaccinePage.dart';
 import 'package:digitalvaccinepassport/Screens/ListAllVaccinePage.dart';
 import 'package:digitalvaccinepassport/Screens/qrCode.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import '../API/api.dart';
 import 'package:intl/intl.dart';
 import '../comp/InputField.dart';
 import '../comp/VaccineCard.dart';
-import 'package:http/http.dart' as http;
 
+// ignore: use_key_in_widget_constructors
 class PatientHomeScreen extends StatefulWidget {
   @override
   State<PatientHomeScreen> createState() => _PatientHomeScreenState();
@@ -45,80 +42,50 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
   }
 
   filterEntry(entry) {
-    print('filter');
     var formatter = DateFormat('dd-MM-yyyy');
     DateTime dt = DateTime.parse(entry['expireDate']);
     DateTime dts = DateTime.parse(entry['date']);
     entry['date'] = formatter.format(dts);
     entry['expireDate'] = formatter.format(dt);
-    /*  print('DATE: ');
-    print(entry['expireDate']); */
+
     var vaccineinfo = entry['vacine_Id'];
-    /*  print(vaccineinfo['name']);
-    print(vaccineinfo['abbrevation']);
-    print(vaccineinfo['information']); */
+
     var filteredEntry = List<String>.filled(6, "");
-/*     print('before seting up filterd: ');
-    print(filteredEntry); */
+
     filteredEntry[0] = vaccineinfo['name'];
     filteredEntry[1] = vaccineinfo['abbrevation'];
     filteredEntry[2] = vaccineinfo['information'];
     filteredEntry[3] = entry['date'];
     filteredEntry[4] = entry['expireDate'];
     filteredEntry[5] = vaccineinfo['url'];
-    /* print('after seting up filterd: ');
-    print(filteredEntry); */
+
     return filteredEntry;
   }
 
   Future getUserInfo() async {
     SharedPreferences logindata = await SharedPreferences.getInstance();
-    /*  print('vor res');
-    print(id);
-    print(token); */
+
     var res;
     List<String> listOfEntries = [];
 
     if (!isDoctor) {
-      print('isDoctor is false');
       res = await BECall().getUserSpecial(id, 'patient', 'filtered', token);
-      print('test');
-      print(res);
-      print('nach res ausgabe');
-      print(res[0]);
-      print('split:');
-      //var tmp = res.toString().split('__v: 0}, __v: 0}, ');
-      print('print array');
-      print('entry1');
-      print(res[0]);
-      var tmpentry; /* = res[0]; */
-      print('entry2');
-      print(res[1]);
-      print('entry3');
-      print(res[2]);
 
-      var patientInfo; /*  = tmpentry['patient_Id']; */
-      print('patientinfo:');
-      print(patientInfo);
-      print('step2');
+      var tmpentry;
+
+      var patientInfo;
 
       for (var i = 0; i < res.length; i++) {
         tmpentry = res[i];
-        print(tmpentry);
+
         patientInfo = tmpentry['_id'];
 
         listOfEntries.add(patientInfo);
       }
 
-      //final List<dynamic> metadata = patientInfo['entries'];
-      //listOfEntries = metadata.map((e) => e.toString()).toList();
-      print('list of entries');
-      print(listOfEntries);
-      print('step3');
       logindata.setStringList('entries', listOfEntries);
       final li = logindata.getStringList('entries');
-      print('LIST');
-      print(li);
+      // ignore: avoid_print
       print(li!.length);
 
       for (var i = 0; i <= li.length; i++) {
@@ -128,83 +95,13 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         EntrieList.add(result);
       }
     } else {
-      print('isDoctor is true');
       res = await BECall().getUserInfoById(id, 'user', token);
-      print('step1');
+
       logindata.setString('username', res['username']);
       logindata.setBool('ischecked', res['isCheckedByAdmin']);
       isChecked = logindata.getBool('ischecked');
-
-      print('bool wert');
-      print(isChecked);
     }
-
-    /*   print('BE1');
-    print(res);
-    print('BE1 end'); */
-
-/* conditional filtering : if doc then save id , username and status - isDoc, isApproved
-
- */
-
-    /* if (id?.allMatches(res['_id']) != null) { */
-    // nach namaz : id von call herausfinden und id setzen-
-    /* logindata.setString('id', res['_id']); */
-
-    //convert List of entries to StringList
-    /*  print('in if und set data in store'); */
-
-    /*  var three =
-          await BECall().getUserSpecial(id, 'patient', 'filtered', token);
-      for (var i = 0; i <= three.length; i++) {
-        print('added');
-        print(three[i]['_id']);
-        listOfEntries!.add(three[i]['_id']);
-      } */
-
-    /* } */
-/*     print('in if nach dem call'); */
-    /* print(res);
-    print('nach res'); */
-
-    // get entry list info
-    // loop durch alle elemente der listOfEntries list um getcall aufzurufen.
-
-    /* check for last 3 enries  */
-    /*
-     var three = await BECall().getUserSpecial(id, 'patient', 'filtered', token);
-    print('three entry');
-    print(three);
-    print(three.length);
-    print(three[1]['_id']);
-    final List lis = [];
-    for (var i = 0; i <= three.length; i++) {
-      lis.add(three[i]['_id']);
-      print('added');
-    }
-    print('LIS LIST');
-    print(lis); */
-    /*  if (!isDoctor) {} */
   }
-  // TODOO:
-
-  // PRIO 1
-  // post entry seite und be call
-  // QR COde einfügen code schon da --> beim scannen string lesen
-  // - token durchlesen - id herausfinden und in den state speichern dabei
-  // beim ende des BE call die ID wieder löschen den state immer wieder auf
-  //null setzen damit er sich resetet
-
-  // PRIO 3
-  // homepage alternative für doctor
-  // done ABER -->  design etwas anderes strukturien - buttons
-
-  // PRIO 3
-  // inputfield in ein widget (dart)Page verwandelen und importieren in den seiten wo es genutzt wird.
-
-  // PRIO 3
-  // simple design für vacinepage structure ändern bzw einfach design + erweitern des durchgeführten datum sowohl im BE als auch im FE
-  // + link für mehr info bearbeiten mithinzufügen.
 
   decodeJwt() async {
     SharedPreferences logindata = await SharedPreferences.getInstance();
@@ -224,58 +121,35 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
         username = usernameArray[2];
       }
     }
-    print('isDoctor VALUE:');
-    print(isDoctor);
-    print('gettoken finish');
+
     setState(() {
-      /* username = logindata.getString('username'); */
-      print('setstate1');
-      //print(logindata.getStringList('entries'));
       vaccineList = logindata.getStringList('entries');
     });
   }
 
   getToken() async {
     SharedPreferences logindata = await SharedPreferences.getInstance();
-    //Return String
     String? stringValue = logindata.getString('token');
     token = stringValue;
-    print('gettoken finish');
     decodeJwt();
-    print('username state:');
-    print(username);
   }
 
-  // ignore: non_constant_identifier_names
-  /*  vaccineList; */ /* = [
-    // name , shortname , info , date
-     ['Astrazenica', 'Astra', 'Impfung gegen Covid-19', '20.02.2021'],
-    ['JohnsenJohnsen', 'J&J', 'Impfung gegen Covid-19', '20.08.2021'],
-    ['Biontech Pfizer', 'Pfizer', 'Impfung gegen Covid-19', '20.01.2022'],
-  ]; */
-
   _sendEmailRequestAccess() async {
-    var res2 = await BECall().sendEmail(
+    await BECall().sendEmail(
       adress: adressController.text,
       email: emailController.text,
       officeName: doctorOfficeController.text,
       username: usernameController.text,
     );
-    var body = res2.toString();
-    print('body email:');
-    print(body);
   }
 
   _sendEmailRequestVaccine() async {
-    var res2 = await BECall().sendEmail2(
+    await BECall().sendEmail2(
       message: messageController.text,
       email: emailController.text,
       officeName: doctorOfficeController.text,
       username: usernameController.text,
     );
-    var body = res2.toString();
-    print('body email:');
-    print(body);
   }
 
   @override
@@ -330,8 +204,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                             size: 24.0,
                           ),
                           onPressed: () {
-                            print('object');
-                            //getToken();
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -360,10 +232,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                           itemCount: EntrieList.length,
                           scrollDirection: Axis.horizontal,
                           itemBuilder: ((context, index) {
-                            /*  if (EntrieList.isNotEmpty) {
-                            print('NOT EMPTY');
-                            print(vaccineList);
-                            print(EntrieList.length); */
                             return VaccineCard(
                               name: EntrieList[index][0],
                               vaccination: EntrieList[index][1],
@@ -372,15 +240,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                               date: EntrieList[index][3],
                               url: EntrieList[index][5],
                             );
-                            /*  } else {
-                            print('EMPTY');
-                  
-                            return Container(
-                              margin: EdgeInsets.all(20.0),
-                              alignment: Alignment.center,
-                              child: Text('empty Space'),
-                            );
-                          } */
                           }),
                         ),
                       ),
@@ -440,9 +299,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
               SizedBox(
                 height: 20,
               ),
-              Column(
-                children: [],
-              ),
               SizedBox(
                 height: 50,
               ),
@@ -500,8 +356,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                             heroTag: 'email_Create_Access',
                             onPressed: () {
                               if (isChecked == false) {
-                                print(
-                                    'method for emailing request for accsess');
                                 showDialog(
                                   context: context,
                                   builder: (context) => AlertDialog(
@@ -580,7 +434,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                           child: Text('Submit')),
                                       TextButton(
                                           onPressed: () {
-                                            print('canceled');
                                             Navigator.pop(context);
                                           },
                                           child: Text('Cancel'))
@@ -588,7 +441,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                   ),
                                 );
                               } else {
-                                print('bereits TRUE');
                                 null;
                               }
                             },
@@ -629,8 +481,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                         child: FloatingActionButton.extended(
                           heroTag: 'email_Create_New_Vaccine',
                           onPressed: () {
-                            print(
-                                'method for emailing request for a new vaccine');
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
@@ -735,7 +585,6 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
                                       child: Text('Submit')),
                                   TextButton(
                                       onPressed: () {
-                                        print('cancel');
                                         Navigator.pop(context);
                                       },
                                       child: Text('Cancel'))
@@ -765,6 +614,3 @@ class _PatientHomeScreenState extends State<PatientHomeScreen> {
     );
   }
 }
-
-// we will be creating a widget for text field
-

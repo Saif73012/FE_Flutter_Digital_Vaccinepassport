@@ -1,9 +1,8 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, non_constant_identifier_names
+// prefer_const_literals_to_create_immutables, non_constant_identifier_names
 
 import 'package:digitalvaccinepassport/Screens/PatientHomeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:convert';
@@ -12,6 +11,7 @@ import 'RegisterPage.dart';
 
 const ip = 'https://das-digitale-impfbuch.herokuapp.com/';
 
+// ignore: use_key_in_widget_constructors
 class LoginPage extends StatefulWidget {
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -27,26 +27,14 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    //check_if_already_login();
   }
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
-
-/*   void check_if_already_login() async {
-    final SharedPreferences logindata = await SharedPreferences.getInstance();
-    newuser = (logindata.getBool('email') ?? true);
-    print(newuser);
-    if (newuser == false) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => PatientHomeScreen()));
-    }
-  } */
 
   void _launchUrl(url) async {
     if (!await launchUrl(url!)) {
@@ -59,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
   _attemptLogin(context) async {
     showDialog(
       context: context,
-      builder: (context) => Center(
+      builder: (context) => const Center(
         child: CircularProgressIndicator(
           backgroundColor: Colors.black26,
           valueColor: AlwaysStoppedAnimation<Color>(
@@ -75,30 +63,16 @@ class _LoginPageState extends State<LoginPage> {
       'password': passwordController.text,
     };
 
-    var res2 = await BECall().login2(data, 'login');
-    /* var body2 = json.decode(res.body); */
-    var body2 = res2.toString();
-    /*  print('body2: ' + body2);
-    print('vor res2 ausgabe');
-    print(res2);
-    print(res2.runtimeType);
-    print(body2.runtimeType);
-    print('body2: ' + body2); */
     var res = await BECall().login(data, 'login');
     var body = json.decode(res.body);
-    if (body2.contains('success')) {
-      print('trueeeeee ');
-    }
 
     if (body['success']) {
-      print('login success');
       logindata.setString('token', body['token']);
-      //logindata.setBool('login', false);
       logindata.setString('email', emailController.text);
       Navigator.push(context,
           MaterialPageRoute(builder: (context) => PatientHomeScreen()));
     } else {
-      final snackBar = SnackBar(
+      const snackBar = SnackBar(
           content: Text(
               'login failed. Try Again! If you have no account sign up.  '));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -118,7 +92,7 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,
@@ -126,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
@@ -138,12 +112,12 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      Text(
+                      const Text(
                         "Login",
                         style: TextStyle(
                             fontSize: 30, fontWeight: FontWeight.bold),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 20,
                       ),
                       Text(
@@ -153,23 +127,23 @@ class _LoginPageState extends State<LoginPage> {
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Column(
                       children: <Widget>[
                         TextField(
                           controller: emailController,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Email',
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         TextField(
                           controller: passwordController,
                           obscureText: true,
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'Password',
                           ),
@@ -178,9 +152,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
-                      padding: EdgeInsets.only(top: 3, left: 3),
+                      padding: const EdgeInsets.only(top: 3, left: 3),
                       child: MaterialButton(
                         minWidth: double.infinity,
                         height: 60,
@@ -192,7 +166,7 @@ class _LoginPageState extends State<LoginPage> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(50),
                         ),
-                        child: Text(
+                        child: const Text(
                           "Login",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -206,15 +180,15 @@ class _LoginPageState extends State<LoginPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text("Don't have an account?"),
+                      const Text("Don't have an account?"),
                       InkWell(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => RegisterPage()));
+                                  builder: (context) => const RegisterPage()));
                         },
-                        child: Text(
+                        child: const Text(
                           " Sign up",
                           style: TextStyle(
                             fontWeight: FontWeight.w600,
@@ -222,13 +196,13 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                     ],
                   ),
                   Ink(
                     color: Colors.grey[400],
                     child: Column(
-                      children: [
+                      children: const [
                         Icon(Icons.warning, size: 15.0),
                         Text(
                           'for the current release there is no funtionality if you have forgotten your password',
@@ -239,9 +213,9 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.only(top: 100),
+                    padding: const EdgeInsets.only(top: 100),
                     height: 100,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/medical-symbol.png"),
                           fit: BoxFit.fitHeight),
@@ -259,23 +233,21 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: Icon(Icons.info_outline, size: 10),
+                          icon: const Icon(Icons.info_outline, size: 10),
                           onPressed: () async {
                             const url =
                                 'https://www.flaticon.com/free-icons/medical';
                             _launchUrl(url);
                           },
                         ),
-                        Text('Medical icons created by SBTS2018 - Flaticon',
+                        const Text(
+                            'Medical icons created by SBTS2018 - Flaticon',
                             style: TextStyle(fontSize: 10)),
-
-                        /* Text(
-                            '<a href="https://www.flaticon.com/free-icons/medical" title="medical icons">Medical icons created by SBTS2018 - Flaticon</a>'), */
                       ],
                     ),
                     Center(
                       child: Row(
-                        children: [
+                        children: const [
                           Text(' Copyright', style: TextStyle(fontSize: 10)),
                           Icon(
                             Icons.copyright,

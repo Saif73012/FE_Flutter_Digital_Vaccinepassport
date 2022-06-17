@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:digitalvaccinepassport/Screens/LoginPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +33,6 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
   }
 
   _attemptCreateOffice() async {
-    final logindata = await SharedPreferences.getInstance();
     var data = {
       'username': usernameController.text,
       'email': emailController.text,
@@ -44,10 +41,7 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
       'officeName': doctorOfficeController.text,
       'isCheckedByAdmin': false
     };
-    /*  if (logindata.getBool('email') ?? true) {
-      print('login');
-    }
- */
+
     var res = await BECall().createBEApiCall(data, 'login/user');
     var body = json.decode(res.body);
     if (body['_id'].isEmpty) {
@@ -63,7 +57,7 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Create User Failed'),
+        title: const Text('Create User Failed'),
         content: SingleChildScrollView(
           child: ListBody(
             children: const <Widget>[
@@ -96,7 +90,7 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,
@@ -106,7 +100,7 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 40),
           height: MediaQuery.of(context).size.height - 50,
           width: double.infinity,
           child: Column(
@@ -114,14 +108,14 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Sign up",
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -208,10 +202,10 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
                 ),
               ),
               Container(
-                padding: EdgeInsets.only(top: 3, left: 3),
+                padding: const EdgeInsets.only(top: 3, left: 3),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    border: Border(
+                    border: const Border(
                       bottom: BorderSide(color: Colors.black),
                       top: BorderSide(color: Colors.black),
                       left: BorderSide(color: Colors.black),
@@ -223,8 +217,6 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
                   onPressed: () {
                     if (formkey.currentState!.validate()) {
                       _attemptCreateOffice();
-                    } else {
-                      print("UnSuccessfull");
                     }
                   },
                   color: Colors.black,
@@ -232,7 +224,7 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(50),
                   ),
-                  child: Text(
+                  child: const Text(
                     "Sign up",
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
@@ -245,13 +237,13 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Already have an account?"),
+                  const Text("Already have an account?"),
                   InkWell(
                     onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => LoginPage()));
                     },
-                    child: Text(
+                    child: const Text(
                       " Login ",
                       style: TextStyle(
                         fontWeight: FontWeight.w600,

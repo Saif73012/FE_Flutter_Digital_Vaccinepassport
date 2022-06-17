@@ -1,9 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+//  prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:http/http.dart';
-import 'qrCode.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -40,7 +38,7 @@ class _AddVaccinePageState extends State<AddVaccinePage> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios,
             size: 20,
             color: Colors.black,
@@ -48,12 +46,12 @@ class _AddVaccinePageState extends State<AddVaccinePage> {
         ),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
       ),
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 25, right: 25),
               child: Text(
                 'Add new Vaccine',
@@ -64,7 +62,7 @@ class _AddVaccinePageState extends State<AddVaccinePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(50),
+              padding: const EdgeInsets.all(50),
               child: Container(
                 child: FutureBuilder(
                   builder: (snapshot, context) {
@@ -76,21 +74,21 @@ class _AddVaccinePageState extends State<AddVaccinePage> {
                   },
                   future: getId(),
                 ),
-                padding: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(20),
                 color: Colors.grey[400],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
               widthFactor: 20,
               child: FloatingActionButton.extended(
                 heroTag: 'navigate_back_to_HomePage',
-                label:
-                    Text('Click here to go back to the HomePage'), // <-- Text
+                label: const Text(
+                    'Click here to go back to the HomePage'), // <-- Text
                 backgroundColor: Colors.black,
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_left,
                   size: 24.0,
                 ),

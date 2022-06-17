@@ -1,12 +1,6 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'LoginPage.dart';
 import 'RegisterPage.dart';
-
-void main() {
-  runApp(const HomePage());
-}
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -17,28 +11,23 @@ class HomePage extends StatelessWidget {
       backgroundColor: Colors.grey[300],
       body: SafeArea(
         child: Container(
-          // we will give media query height
-          // double.infinity make it big as my parent allows
-          // while MediaQuery make it big as per the screen
-
           width: double.infinity,
           height: MediaQuery.of(context).size.height,
-          padding: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 50),
           child: Column(
-            // even space distribution
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Text(
+                  const Text(
                     "Welcome",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(
@@ -53,7 +42,7 @@ class HomePage extends StatelessWidget {
               ),
               Container(
                 height: MediaQuery.of(context).size.height / 3,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: AssetImage("assets/medical-symbol.png"))),
               ),
@@ -69,16 +58,16 @@ class HomePage extends StatelessWidget {
                     },
                     // defining the shape
                     shape: RoundedRectangleBorder(
-                        side: BorderSide(color: Colors.black),
+                        side: const BorderSide(color: Colors.black),
                         borderRadius: BorderRadius.circular(50)),
-                    child: Text(
+                    child: const Text(
                       "Login",
                       style:
                           TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                     ),
                   ),
                   // creating the signup button
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   MaterialButton(
                     minWidth: double.infinity,
                     height: 60,
@@ -86,12 +75,12 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegisterPage()));
+                              builder: (context) => const RegisterPage()));
                     },
                     color: Colors.black,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
-                    child: Text(
+                    child: const Text(
                       "Sign up",
                       style: TextStyle(
                           color: Colors.white,
