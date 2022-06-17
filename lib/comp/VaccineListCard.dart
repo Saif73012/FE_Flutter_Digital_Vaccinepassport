@@ -7,15 +7,19 @@ import '../Screens/SingleVaccinePage.dart';
 
 class VaccineListCard extends StatelessWidget {
   final String name;
-  final String shortname;
+  final String vaccination;
   final String info;
+  final String expireDate;
   final String date;
+  final String url;
 
   VaccineListCard(
       {required this.name,
-      required this.shortname,
+      required this.vaccination,
       required this.info,
-      required this.date});
+      required this.date,
+      required this.expireDate,
+      required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +29,13 @@ class VaccineListCard extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => SingleVaccinePage.forList(
             VaccineListCard(
-                name: name, shortname: shortname, info: info, date: date),
+              name: name,
+              vaccination: vaccination,
+              info: info,
+              date: date,
+              expireDate: expireDate,
+              url: url,
+            ),
           ),
         ),
       ),
@@ -64,12 +74,11 @@ class VaccineListCard extends StatelessWidget {
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                      Text(shortname)
+                      Text(date)
                     ],
                   ),
                 ],
               ),
-              Text(date)
             ],
           ),
         ),

@@ -5,15 +5,19 @@ import 'package:flutter/material.dart';
 
 class VaccineCard extends StatelessWidget {
   final String name;
-  final String shortname;
+  final String vaccination;
   final String info;
+  final String expireDate;
   final String date;
+  final String url;
 
   VaccineCard(
       {required this.name,
-      required this.shortname,
+      required this.vaccination,
       required this.info,
-      required this.date});
+      required this.expireDate,
+      required this.date,
+      required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +27,13 @@ class VaccineCard extends StatelessWidget {
         MaterialPageRoute(
           builder: (context) => SingleVaccinePage(
             VaccineCard(
-                name: name, shortname: shortname, info: info, date: date),
+              name: name,
+              vaccination: vaccination,
+              info: info,
+              expireDate: expireDate,
+              url: url,
+              date: date,
+            ),
           ),
         ),
       ),
@@ -51,7 +61,6 @@ class VaccineCard extends StatelessWidget {
                   ],
                 ),
                 Text(name),
-                Text(shortname),
                 Text(date),
               ],
             ),

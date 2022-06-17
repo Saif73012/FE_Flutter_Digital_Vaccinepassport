@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../API/api.dart';
+import '../comp/InputField.dart';
 
 class RegisterOfficePage extends StatefulWidget {
   const RegisterOfficePage({Key? key}) : super(key: key);
@@ -39,15 +40,15 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
       'username': usernameController.text,
       'email': emailController.text,
       'password': passwordController.text,
-      'isDoctor': true,
-      'isAdmin': false,
+      'adress': adressController.text,
+      'officeName': doctorOfficeController.text,
       'isCheckedByAdmin': false
     };
-    if (logindata.getBool('email') ?? true) {
+    /*  if (logindata.getBool('email') ?? true) {
       print('login');
     }
-
-    var res = await BECall().createPatient(data, 'login/user');
+ */
+    var res = await BECall().createBEApiCall(data, 'login/user');
     var body = json.decode(res.body);
     if (body['_id'].isEmpty) {
       // error --> not a boolean --> if body has a password value then exec. otherwise show error dialog
@@ -134,51 +135,52 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
                   key: formkey,
                   child: Column(
                     children: <Widget>[
-                      inputFile(
-                        label: "Officename",
-                        controller: doctorOfficeController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a officename';
-                          }
-                          return null;
-                        },
-                      ),
-                      inputFile(
-                        label: "Address",
-                        controller: adressController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a address';
-                          }
-                          return null;
-                        },
-                      ),
-                      inputFile(
-                        label: "Username",
-                        controller: usernameController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a username';
-                          }
-                          return null;
-                        },
-                      ),
-                      inputFile(
-                        label: "Email",
-                        controller: emailController,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a Email';
-                          }
-                          if (!RegExp("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
-                              .hasMatch(value)) {
-                            return 'Please enter a valid Email';
-                          }
-                          return null;
-                        },
-                      ),
-                      inputFile(
+                      InputFile(
+                          label: "Officename",
+                          controller: doctorOfficeController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a officename';
+                            }
+                            return null;
+                          },
+                          obscureText: false),
+                      InputFile(
+                          label: "Address",
+                          controller: adressController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a address';
+                            }
+                            return null;
+                          },
+                          obscureText: false),
+                      InputFile(
+                          label: "Username",
+                          controller: usernameController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a username';
+                            }
+                            return null;
+                          },
+                          obscureText: false),
+                      InputFile(
+                          label: "Email",
+                          controller: emailController,
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a Email';
+                            }
+                            if (!RegExp(
+                                    "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+.[a-z]")
+                                .hasMatch(value)) {
+                              return 'Please enter a valid Email';
+                            }
+                            return null;
+                          },
+                          obscureText: false),
+                      InputFile(
                           label: "Password",
                           controller: passwordController,
                           validator: (value) {
@@ -188,7 +190,7 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
                             return null;
                           },
                           obscureText: true),
-                      inputFile(
+                      InputFile(
                           label: "Confirm Password ",
                           controller: passwordConfirmController,
                           validator: (value) {
@@ -265,35 +267,4 @@ class _RegisterOfficePageState extends State<RegisterOfficePage> {
       ),
     );
   }
-}
-
-// we will be creating a widget for text field
-Widget inputFile({label, controller, validator, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      TextFormField(
-        obscureText: obscureText,
-        controller: controller,
-        validator: validator,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(),
-            ),
-            border: OutlineInputBorder(borderSide: BorderSide())),
-      ),
-      SizedBox(
-        height: 10,
-      )
-    ],
-  );
 }

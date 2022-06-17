@@ -2,10 +2,31 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
+import 'qrCode.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AddVaccinePage extends StatelessWidget {
+class AddVaccinePage extends StatefulWidget {
   const AddVaccinePage({Key? key}) : super(key: key);
+
+  @override
+  State<AddVaccinePage> createState() => _AddVaccinePageState();
+}
+
+class _AddVaccinePageState extends State<AddVaccinePage> {
+  String? token = '';
+
+  getId() async {
+    SharedPreferences logindata = await SharedPreferences.getInstance();
+    token = logindata.getString('token');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getId();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +47,6 @@ class AddVaccinePage extends StatelessWidget {
           ),
         ),
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        title: Column(
-          children: [Text('data')],
-        ),
       ),
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -46,16 +64,19 @@ class AddVaccinePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(left: 50, right: 50),
+              padding: EdgeInsets.all(50),
               child: Container(
-                child: QrImage(
-                  data: "1234567890",
-                  version: QrVersions.auto,
-                  size: 250,
+                child: FutureBuilder(
+                  builder: (snapshot, context) {
+                    return QrImage(
+                      data: token!,
+                      version: QrVersions.auto,
+                      size: 250,
+                    );
+                  },
+                  future: getId(),
                 ),
-                width: double.infinity,
-                height: 250,
-                padding: EdgeInsets.all(5),
+                padding: EdgeInsets.all(20),
                 color: Colors.grey[400],
               ),
             ),
@@ -65,20 +86,16 @@ class AddVaccinePage extends StatelessWidget {
             Center(
               widthFactor: 20,
               child: FloatingActionButton.extended(
-                heroTag: 'navigate to AddVaccinePage',
-                label: Text('Click here to Add a new Vaccine'), // <-- Text
+                heroTag: 'navigate_back_to_HomePage',
+                label:
+                    Text('Click here to go back to the HomePage'), // <-- Text
                 backgroundColor: Colors.black,
                 icon: Icon(
-                  // <-- Icon
-                  Icons.medication,
+                  Icons.arrow_left,
                   size: 24.0,
                 ),
                 onPressed: () {
-                  /*  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => AddVaccinePage())); */
-                  print('object');
+                  Navigator.pop(context);
                 },
               ),
             ),

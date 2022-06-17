@@ -30,7 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
       'password': passwordController.text,
     };
 
-    var res = await BECall().createPatient(data, 'login/patient');
+    var res = await BECall().createBEApiCall(data, 'login/patient');
     var body = json.decode(res.body);
     if (body['_id'].isEmpty) {
       // error --> not a boolean --> if body has a password value then exec. otherwise show error dialog
@@ -279,33 +279,4 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-}
-
-// we will be creating a widget for text field
-Widget inputFile({label, obscureText = false}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: <Widget>[
-      Text(
-        label,
-        style: TextStyle(
-            fontSize: 15, fontWeight: FontWeight.w400, color: Colors.black87),
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      TextField(
-        obscureText: obscureText,
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-            enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(),
-            ),
-            border: OutlineInputBorder(borderSide: BorderSide())),
-      ),
-      SizedBox(
-        height: 10,
-      )
-    ],
-  );
 }
