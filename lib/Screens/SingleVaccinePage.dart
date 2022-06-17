@@ -22,7 +22,7 @@ class SingleVaccinePage extends StatelessWidget {
     }
     if (!await launchUrl(_url!)) {
       throw 'CouldUri.parse( not launch  $_url';
-    } //$_url
+    }
   }
 
   @override
