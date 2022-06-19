@@ -20,7 +20,10 @@ class SingleVaccinePage extends StatelessWidget {
     } else {
       _url = Uri.parse(vaccineList!.url);
     }
-    if (!await launchUrl(_url!)) {
+    if (!await launchUrl(
+      _url!,
+      mode: LaunchMode.externalApplication,
+    )) {
       throw 'CouldUri.parse( not launch  $_url';
     }
   }

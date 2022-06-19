@@ -27,19 +27,23 @@ class BECall {
 
     final url = Uri.parse('https://api.emailjs.com/api/v1.0/email/send');
 
-    await http.post(url,
-        headers: _setHeaders(),
-        body: json.encode({
-          'service_id': serviceId,
-          'template_id': templateId,
-          'user_id': userId,
-          'template_params': {
-            'user_officeName': officeName,
-            'user_username': username,
-            'user_adress': adress,
-            'user_email': email,
-          }
-        }));
+    try {
+      await http.post(url,
+          headers: _setHeaders(),
+          body: json.encode({
+            'service_id': serviceId,
+            'template_id': templateId,
+            'user_id': userId,
+            'template_params': {
+              'user_officeName': officeName,
+              'user_username': username,
+              'user_adress': adress,
+              'user_email': email,
+            }
+          }));
+    } catch (e) {
+      return e;
+    }
   }
 
   Future sendEmail2({
