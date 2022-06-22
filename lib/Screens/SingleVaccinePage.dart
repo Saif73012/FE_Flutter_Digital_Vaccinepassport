@@ -54,23 +54,17 @@ class SingleVaccinePage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(
-              height: 25,
+              height: 5,
             ),
             if (vaccine?.name != null) ...[
               Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    const Text(
-                      'Name: ',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(vaccine!.name),
-                  ],
+                flex: 0,
+                child: Text(
+                  vaccine!.name,
+                  style: const TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
@@ -78,19 +72,27 @@ class SingleVaccinePage extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      'Vaccination for: ',
+                      'Vaccination against:',
+                      textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(vaccine!.vaccination),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 35, vertical: 0),
+                      child: Text(
+                        vaccine!.vaccination,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 0,
                 child: Column(
                   children: [
                     const Text(
@@ -112,7 +114,7 @@ class SingleVaccinePage extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 0,
                 child: Column(
                   children: [
                     const Text(
@@ -136,9 +138,8 @@ class SingleVaccinePage extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Container(
-                  /* decoration: BoxDecoration(color: Colors.grey[400]), */
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 0),
+                      const EdgeInsets.symmetric(horizontal: 35, vertical: 0),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                   child: Text(
@@ -176,19 +177,13 @@ class SingleVaccinePage extends StatelessWidget {
               //ListAllVaccine Click
 
               Expanded(
-                flex: 1,
-                child: Column(
-                  children: [
-                    const Text(
-                      'Name: ',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Text(vaccineList!.name),
-                  ],
+                flex: 0,
+                child: Text(
+                  vaccineList!.name,
+                  style: const TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               Expanded(
@@ -196,19 +191,27 @@ class SingleVaccinePage extends StatelessWidget {
                 child: Column(
                   children: [
                     const Text(
-                      'Vaccination for: ',
+                      'Vaccination against:',
+                      textAlign: TextAlign.center,
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(vaccineList!.vaccination),
+                    Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 35, vertical: 0),
+                      child: Text(
+                        vaccineList!.vaccination,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
                   ],
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 0,
                 child: Column(
                   children: [
                     const Text(
@@ -230,7 +233,7 @@ class SingleVaccinePage extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
+                flex: 0,
                 child: Column(
                   children: [
                     const Text(
@@ -254,9 +257,8 @@ class SingleVaccinePage extends StatelessWidget {
               Expanded(
                 flex: 2,
                 child: Container(
-                  /* decoration: BoxDecoration(color: Colors.grey[400]), */
                   margin:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 0),
+                      const EdgeInsets.symmetric(horizontal: 35, vertical: 0),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
                   child: Text(

@@ -159,6 +159,21 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.grey[300],
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            size: 20,
+            color: Colors.black,
+          ),
+        ),
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+      ),
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.grey[300],
       body: Column(
@@ -201,7 +216,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 0,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               child: FloatingActionButton.extended(
@@ -217,7 +232,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
             ),
           ),
           Expanded(
-            flex: 1,
+            flex: 0,
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               child: FloatingActionButton.extended(
@@ -235,7 +250,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
           ),
           if (isDateSelected) ...[
             Expanded(
-              flex: 1,
+              flex: 0,
               child: Container(
                 padding: const EdgeInsets.only(
                     bottom: 0, left: 10, right: 10, top: 10),
@@ -264,7 +279,7 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
             ),
           ] else ...[
             Expanded(
-              flex: 1,
+              flex: 0,
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
@@ -295,34 +310,18 @@ class _QRCodeScannerState extends State<QRCodeScanner> {
             flex: 1,
             child: Container(
               alignment: FractionalOffset.center,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  FloatingActionButton.extended(
-                    heroTag: 'navigate_back_to_HomePage',
-                    label: const Text('Click to create a entry'), // <-- Text
-                    backgroundColor: Colors.black,
-                    icon: const Icon(
-                      Icons.description,
-                      size: 24.0,
-                    ),
-                    onPressed: () {
-                      attemptCreateEntry();
-                    },
-                  ),
-                  FloatingActionButton.extended(
-                    heroTag: 'navigate_back_to_HomePage',
-                    label: const Text('Cancel'), // <-- Text
-                    backgroundColor: Colors.black,
-                    icon: const Icon(
-                      Icons.arrow_left,
-                      size: 24.0,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
+              margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+              child: FloatingActionButton.extended(
+                heroTag: 'create_Entry',
+                label: const Text('Click to create a entry'), // <-- Text
+                backgroundColor: Colors.black,
+                icon: const Icon(
+                  Icons.description,
+                  size: 24.0,
+                ),
+                onPressed: () {
+                  attemptCreateEntry();
+                },
               ),
             ),
           ),

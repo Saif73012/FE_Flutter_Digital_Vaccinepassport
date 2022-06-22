@@ -70,7 +70,7 @@ class VaccineListCard extends StatelessWidget {
                       Text(
                         name,
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                            fontWeight: FontWeight.bold, fontSize: 18),
                       ),
                       Text(date)
                     ],

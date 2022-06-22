@@ -81,22 +81,6 @@ class _AddVaccinePageState extends State<AddVaccinePage> {
             const SizedBox(
               height: 20,
             ),
-            Center(
-              widthFactor: 20,
-              child: FloatingActionButton.extended(
-                heroTag: 'navigate_back_to_HomePage',
-                label: const Text(
-                    'Click here to go back to the HomePage'), // <-- Text
-                backgroundColor: Colors.black,
-                icon: const Icon(
-                  Icons.arrow_left,
-                  size: 24.0,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ),
           ],
         ),
       ),
